@@ -44,7 +44,7 @@ private:
     const double w_cte_error_ = 2000.;
     const double w_epsi_error_ = 2000.;
     const double w_v_error_ = 2.5;
-    const double w_delta_ = 100.; // 10.
+    const double w_delta_ = 100.; 
     const double w_a_ = 10.;
     const double w_delta_change_ = 100;
     const double w_a_change_ = 10.;

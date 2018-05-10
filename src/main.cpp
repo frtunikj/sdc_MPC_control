@@ -114,13 +114,13 @@ int main() {
                 // x driving direction, y is on the left
                 for (size_t i = 0; i < ptsx.size(); i++) {
                     double x = ptsx[i] - px;
-                            double y = ptsy[i] - py;
-                            ptsx_veh[i] = x * cos(-psi) - y * sin(-psi);
-                            ptsy_veh[i] = x * sin(-psi) + y * cos(-psi);
+                    double y = ptsy[i] - py;
+                    ptsx_veh[i] = x * cos(-psi) - y * sin(-psi);
+                    ptsy_veh[i] = x * sin(-psi) + y * cos(-psi);
                 }
 
                 /*
-                 * Calculate steering angle and throttle using MPC.
+            5     * Calculate steering angle and throttle using MPC.
                  * Both are in between [-1, 1].
                  * Simulator has 100ms latency, so will predict state at that point in time.
                  * This will help the car react to where it is actually at by the point of actuation.
