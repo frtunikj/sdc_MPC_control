@@ -47,7 +47,7 @@ private:
     const double w_delta_ = 100; 
     const double w_a_ = 10;
     const double w_delta_change_ = 100;
-    const double w_a_change_ = 10.;
+    const double w_a_change_ = 10;
 
     const double latency_ = 0.0; // seconds
 
@@ -62,10 +62,8 @@ public:
     typedef CPPAD_TESTVECTOR(AD<double>) ADvector;
 
     void operator()(ADvector& fg, const ADvector& vars) {
-        // TODO: implement MPC
+        // implement MPC
         // `fg` a vector of the cost constraints, `vars` is a vector of variable values (state & actuators)
-        // NOTE: You'll probably go back and forth between this function and
-        // the Solver function below.
 
         fg[0] = 0;
 
@@ -220,7 +218,7 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
     bool ok = true;
     typedef CPPAD_TESTVECTOR(double) Dvector;
 
-    // TODO: Set the number of model variables (includes both states and inputs).
+    // Set the number of model variables (includes both states and inputs).
     // For example: If the state is a 4 element vector, the actuators is a 2
     // element vector and there are 10 timesteps. The number of variables is:
     //
@@ -247,7 +245,7 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
 
     Dvector vars_lowerbound(n_vars);
     Dvector vars_upperbound(n_vars);
-    // TODO: Set lower and upper limits for variables.
+    // Set lower and upper limits for variables.
 
     setupBoundsOnOptimizationVars(n_vars, vars_lowerbound, vars_upperbound);
 
