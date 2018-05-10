@@ -119,8 +119,7 @@ int main() {
                     ptsy_veh[i] = x * sin(-psi) + y * cos(-psi);
                 }
 
-                /*
-            5     * Calculate steering angle and throttle using MPC.
+                /* Calculate steering angle and throttle using MPC.
                  * Both are in between [-1, 1].
                  * Simulator has 100ms latency, so will predict state at that point in time.
                  * This will help the car react to where it is actually at by the point of actuation.
@@ -145,9 +144,8 @@ int main() {
                 const double dt = 0.1;
 
                 // Predict state after latency
-                // x, y and psi are all zero after transformation above
-                double pred_px = 0.0 + v * dt; // Since psi is zero, cos(0) = 1, can leave out
-                const double pred_py = 0.0; // Since sin(0) = 0, y stays as 0 (y + v * 0 * dt)
+                double pred_px = 0.0 + v * dt; 
+                const double pred_py = 0.0;
                 double pred_psi = 0.0 + v * -delta / Lf * dt;
                 double pred_v = v + a * dt;
                 double pred_cte = cte + v * sin(epsi) * dt;

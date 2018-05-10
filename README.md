@@ -83,7 +83,7 @@ The timestep length `N` determines the MPC "lookahead" in the future and the tim
 
 ### Latency
 
-As mentioned above a 100 ms latency between actuation commands on top of the connection latency have to be compensated by the controller. Unlike PID control, MPC can directly account for a latency in the kinematic model used for state prediction, thereby compensating for the latency in advance. To do so the state vector [px, py, psi, v] and the errors `cte` and `epsi` are predicted by the kinematic model 100 ms ahead (implemented in lines 149-154 of `main.cpp`). This is done before the MPC solve function is called.
+As mentioned above a 100 ms latency between actuation commands on top of the connection latency have to be compensated by the controller. Unlike PID control, MPC can directly account for a latency in the kinematic model used for state prediction, thereby compensating for the latency in advance. To do so the state vector [px, py, psi, v] and the errors `cte` and `epsi` are predicted by the kinematic model 100 ms ahead (implemented in lines 147-152 of `main.cpp`). This is done before the MPC solve function is called.
 
 ### Polynomial fitting to waypoints
 To estimate the current road curve ahaid a 3rd order polynomial (line 130 of `main.cpp`) is fited to the waypoints received from the simulator. Since, the waypoints are given at an arbitrary global coordinate system, one has to transform them to the vehicle's local coordinate system first before the polyfit is calculated. 
