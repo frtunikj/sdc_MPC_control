@@ -38,14 +38,14 @@ size_t a_start = delta_start + N - 1;
 
 class FG_eval {
 private:
-    const double ref_v_ = 100.;
+    const double ref_v_ = 100;
 
     // Weights used in the cost function
-    const double w_cte_error_ = 2000.;
-    const double w_epsi_error_ = 2000.;
-    const double w_v_error_ = 2.5;
-    const double w_delta_ = 100.; 
-    const double w_a_ = 10.;
+    const double w_cte_error_ = 3000;
+    const double w_epsi_error_ = 2600;
+    const double w_v_error_ = 1.0;
+    const double w_delta_ = 100; 
+    const double w_a_ = 10;
     const double w_delta_change_ = 100;
     const double w_a_change_ = 10.;
 
