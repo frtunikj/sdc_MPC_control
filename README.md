@@ -30,9 +30,8 @@ The vehicle state and the actuator vector information is provided by the simulat
 The simulator returns the vehicle orientation `psi` in radians, the vhicles' global position `x` and `y` in meter, the steering angle `steering_angle` in radians, the throttle position `throttle` and the vehicle's speed `speed` in mph. On the result figure below one ca differenciate two lines - the yellow line represents the waypoints returned by the simulator and the green lane the polynomial fitted reference path of the MPC.
 
 ![alt text][image0]
-  
 
-#### Kinematic model
+### Kinematic model
 The kinematic model of the controller predicts the state vector on the next timestep considering the actual state and actuator values. The equations below describe the kinematic model used (NOTE: the model does not consider dynamics like tire forces, slip angle or slip ratio because Udacity's simulator does not support it). 
 
 ```python
@@ -47,7 +46,7 @@ Lf - this is the length from front of vehicle to its Center-of-Gravity
 ```
 The equations lead to constraints for the optimizer, while it tries to optimize the cost function. 
 
-### Cost function for optimizer
+### Cost function for the MPC optimizer
 
 The MPC cost function aims at achieving the following goals:
 
@@ -68,7 +67,7 @@ NOTE: The cost function is integrated over all time steps.
 
 The weight factors (A, B, C, D, E, F, G) have been tuned manually through trial-and-error in several test runs. The higher weights for the cross track and orientation errors keeps the vehicle in the center of the lane and a lower weight for the velocity enables MPC to slow down in curves and do not drive over the curbs. At the end the following weights are used:
 
-```
+```cpp
 const double w_cte_error_ = 3000;
 const double w_epsi_error_ = 2600;
 const double w_v_error_ = 1.0;
@@ -87,7 +86,16 @@ The timestep length `N` determines the MPC "lookahead" in the future and the tim
 As mentioned above a 100 ms latency between actuation commands on top of the connection latency have to be compensated by the controller. Unlike PID control, MPC can directly account for a latency in the kinematic model used for state prediction, thereby compensating for the latency in advance. To do so the state vector [px, py, psi, v] and the errors `cte` and `epsi` are predicted by the kinematic model 100 ms ahead (implemented in lines 149-154 of `main.cpp`). This is done before the MPC solve function is called.
 
 ### Polynomial fitting to waypoints
-TBD
+To estimate the current road curve ahaid a 3rd order polynomial (line 130 of `main.cpp`) is fited to the waypoints received from the simulator. Since, the waypoints are given at an arbitrary global coordinate system, one has to transform them to the vehicle's local coordinate system first before the polyfit is calculated. 
+
+```cpp
+for (size_t i = 0; i < ptsx.size(); i++) {
+    double x = ptsx[i] - px;
+    double y = ptsy[i] - py;
+    ptsx_veh[i] = x * cos(-psi) - y * sin(-psi);
+    ptsy_veh[i] = x * sin(-psi) + y * cos(-psi);
+}
+```
 
 ## Running the Code
 
